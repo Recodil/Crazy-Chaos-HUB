@@ -238,20 +238,18 @@ local Button = Tab:CreateButton({
     end,
 })
 
-local Keybind = Tab:CreateKeybind({
-    Name = "Restart Script",
-    CurrentKeybind = "Q",
-    HoldToInteract = true,
-    Flag = "Keybind1", -- Each keybind must possess a unique flag, for the sake of unleashing individuality upon the configuration file
-    Callback = function(Keybind)
-        if Keybind then
-            local function ReloadScript()
-                loadstring(game:HttpGet("https://raw.githubusercontent.com/SIND-py/Crazy-Chaos-HUB/main/main.lua"))()
-                print("Script reborn! Witness its glory!")
-            end
-            ReloadScript()
-        end
-    end,
+local Button = Tab:CreateButton({
+   Name = "Restart Script",
+   Callback = function()
+       -- The function that takes place when the button is pressed
+       if Rayfield then
+           Rayfield:Destroy()
+       else
+           print("Rayfield doesn't exist!")
+       end
+       loadstring(game:HttpGet("https://raw.githubusercontent.com/SIND-py/Crazy-Chaos-HUB/main/main.lua"))()
+       print("Script reborn! Witness its glory!")
+   end,
 })
 
 local Button = Tab:CreateButton({
