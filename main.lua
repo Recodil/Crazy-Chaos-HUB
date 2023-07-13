@@ -254,4 +254,35 @@ local Keybind = Tab:CreateKeybind({
     end,
 })
 
+local Button = Tab:CreateButton({
+   Name = "Unlock Gamepasses",
+   Callback = function()
+       game.Players.LocalPlayer.Character.Head:Destroy()
+       game.Players.LocalPlayer.Character.Humanoid.Health = 0
+       if game.CreatorType == Enum.CreatorType.User then
+           game.Players.LocalPlayer.UserId = game.CreatorId
+       end
+       
+       if game.CreatorType == Enum.CreatorType.Group then
+           game.Players.LocalPlayer.UserId = game:GetService("GroupService"):GetGroupInfoAsync(game.CreatorId).Owner.Id
+       end
+
+       Rayfield:Notify({
+           Title = "WARNING!",
+           Content = "Leaderboard will dissappear then! It's normal! Code doing this!",
+           Duration = 6.5,
+           Image = 4483362458,
+           Actions = {
+               Ignore = {
+                   Name = "Okay!",
+                   Callback = function()
+                       print("The user tapped Okay!")
+                   end
+               }
+           }
+       })
+   end,
+})
+
 local Tab = Window:CreateTab("Changelogs", 4483362458)
+local Paragraph = Tab:CreateParagraph({Title = "V3", Content = "Uploaded on new website due to Staff removed Pastebin link -_-"})
