@@ -27,7 +27,7 @@ local Window = Rayfield:CreateWindow({
 })
 
 Rayfield:Notify({
-   Title = "Crazy CHAOS Hub DEV VERSION",
+   Title = "Crazy CHAOS Hub",
    Content = "Hub loaded!",
    Duration = 6.5,
    Image = 13728916504,
@@ -246,7 +246,7 @@ local Keybind = Tab:CreateKeybind({
     Callback = function(Keybind)
         if Keybind then
             local function ReloadScript()
-                loadstring(game:HttpGet(""))()
+                loadstring(game:HttpGet("https://raw.githubusercontent.com/SIND-py/Crazy-Chaos-HUB/main/main.lua"))()
                 print("Script reborn! Witness its glory!")
             end
             ReloadScript()
