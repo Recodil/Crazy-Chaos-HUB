@@ -253,6 +253,13 @@ local Button = Tab:CreateButton({
 })
 
 local Button = Tab:CreateButton({
+   Name = "DESTROY RAYFIELD SCRIPT",
+   Callback = function()
+   Rayfield:Destroy()
+   end,
+})
+
+local Button = Tab:CreateButton({
    Name = "Unlock Gamepasses",
    Callback = function()
        game.Players.LocalPlayer.Character.Head:Destroy()
