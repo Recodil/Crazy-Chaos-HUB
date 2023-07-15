@@ -5,7 +5,7 @@ local Window = Rayfield:CreateWindow({
    LoadingTitle = "Crazy CHAOS Hub",
    LoadingSubtitle = "by Code_Nope1(Discord: Unc0dxd)",
    ConfigurationSaving = {
-      Enabled = true,
+      Enabled = false,
       FolderName = "Crazy CHAOS Hub",
       FileName = "Crazy CHAOS Hub"
    },
@@ -282,7 +282,6 @@ local Button = Tab:CreateButton({
    end,
 })
 
-local Tab = Window:CreateTab("Universal_2", 4483362458)
 local Button = Tab:CreateButton({
     Name = "DESTROY RAYFIELD SCRIPT",
     Callback = function()
@@ -290,6 +289,59 @@ local Button = Tab:CreateButton({
     end,
 })
 
+local Toggle = Tab:CreateToggle({
+    Name = "Fly Script (GUI NOT MINE)",
+    CurrentValue = false,
+    Flag = "Toggle2",
+    Callback = function(Value)
+        if Value then
+            print("Fly mode ON")
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.txt"))()
+        else
+            print("Fly mode OFF")
+            -- Replace "main" with the specific name of the ScreenGui object you want to destroy
+            game.Players.LocalPlayer.PlayerGui:FindFirstChild("main"):Destroy()
+        end
+    end,
+})
 
+local Toggle = Tab:CreateToggle({
+    Name = "inf jump (WARNING. CAN'T FIX INF JUMP AFTER TURN OFF)",
+    CurrentValue = false,
+    Flag = "Toggle3",
+    Callback = function(Value)
+        if Value then
+            -- Enable the loadstring
+            loadstring(game:HttpGet("https://pastebin.com/raw/6BvCvxgN", true))()
+        else
+            -- Disable the loadstring
+            for _, obj in ipairs(game.CoreGui:GetChildren()) do
+                if obj.Name == "ScreenGui" then
+                    obj:Destroy()
+                end
+            end
+            -- Reset the jump power
+            local Player = game:GetService("Players").LocalPlayer
+            if Player.Character then
+                local humanoid = Player.Character:FindFirstChildOfClass("Humanoid")
+                if humanoid then
+                    humanoid.JumpPower = 50
+                end
+            end
+        end
+    end,
+})
+
+
+
+
+
+local Button = Tab:CreateButton({
+    Name = "Execute fling! SCRIPT FROM YOUTUBE, NOT MINE",
+    Callback = function()
+    loadstring(game:HttpGet("https://pastebin.com/raw/Q0Nh2SYx"))()
+    end,
+ })
 local Tab = Window:CreateTab("Changelogs", 4483362458)
 local Paragraph = Tab:CreateParagraph({Title = "V3", Content = "Uploaded on new website due to Staff removed Pastebin link -_-"})
+local Paragraph = Tab:CreateParagraph({Title = "V3.0.1", Content = "Added sum scripts into Universal. Some of them, can't still fix due to unknown errors and impossible fixes (for now)"})
