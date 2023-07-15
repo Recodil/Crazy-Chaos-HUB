@@ -337,7 +337,7 @@ local Toggle = Tab:CreateToggle({
 
 
 local Button = Tab:CreateButton({
-    Name = "Execute fling! SCRIPT FROM YOUTUBE, NOT MINE",
+    Name = "Execute antifling! SCRIPT FROM YOUTUBE, NOT MINE",
     Callback = function()
     loadstring(game:HttpGet("https://pastebin.com/raw/Q0Nh2SYx"))()
     end,
