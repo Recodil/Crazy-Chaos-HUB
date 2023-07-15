@@ -12,7 +12,7 @@ local Window = Rayfield:CreateWindow({
      Discord = {
       Enabled = false,
       Invite = "noinvitelink", 
-      RememberJoins = true 
+      RememberJoins = false 
    },
    KeySystem = true, 
    KeySettings = {
@@ -22,7 +22,7 @@ local Window = Rayfield:CreateWindow({
       FileName = "Code", 
       SaveKey = true, 
       GrabKeyFromSite = false,
-      Key = {"test", "TEST", "TeSt", "0000"} 
+      Key = {"test", "CHAOS"} 
    }
 })
 
@@ -253,13 +253,6 @@ local Button = Tab:CreateButton({
 })
 
 local Button = Tab:CreateButton({
-   Name = "DESTROY RAYFIELD SCRIPT",
-   Callback = function()
-   Rayfield:Destroy()
-   end,
-})
-
-local Button = Tab:CreateButton({
    Name = "Unlock Gamepasses",
    Callback = function()
        game.Players.LocalPlayer.Character.Head:Destroy()
@@ -288,6 +281,15 @@ local Button = Tab:CreateButton({
        })
    end,
 })
+
+local Tab = Window:CreateTab("Universal_2", 4483362458)
+local Button = Tab:CreateButton({
+    Name = "DESTROY RAYFIELD SCRIPT",
+    Callback = function()
+    Rayfield:Destroy()
+    end,
+})
+
 
 local Tab = Window:CreateTab("Changelogs", 4483362458)
 local Paragraph = Tab:CreateParagraph({Title = "V3", Content = "Uploaded on new website due to Staff removed Pastebin link -_-"})
