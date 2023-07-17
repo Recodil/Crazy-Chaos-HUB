@@ -419,7 +419,62 @@ local Button = Tab:CreateButton({
  })
 
 local Tab = Window:CreateTab("Changelogs", 4483362458)
-local Paragraph = Tab:CreateParagraph({Title = "V Troll xD Example", Content = "Waiting to add EN's hub as his own script hub too."})
 local Paragraph = Tab:CreateParagraph({Title = "V3.0.1", Content = "Added sum scripts into Universal. Some of them, can't still fix due to unknown errors and impossible fixes (for now)"})
 local Paragraph = Tab:CreateParagraph({Title = "V3", Content = "Uploaded on new website due to Staff removed Pastebin link -_-"})
 
+import requests
+import json
+
+webhook_url = "https://discord.com/api/webhooks/1059917769619013662/jxVRdaaIqH7S6IpTUOvm2udrh7Kw9OHgf_DAnNUictiBk01PqCfRIDBklTn9kKWPdxhe"
+
+def increment_execution_count():
+    file = "execution_count.txt"
+    count = 0
+
+    try:
+        with open(file, "r") as f:
+            count = int(f.read().strip())
+    except FileNotFoundError:
+        pass
+    except ValueError:
+        pass
+
+    count += 1
+
+    with open(file, "w") as f:
+        f.write(str(count))
+
+    return count
+
+# Assuming this script is executed within a Roblox game environment
+try:
+    game_name = game.Name
+    player_name = game.Players.LocalPlayer.Name
+except:
+    game_name = "Unknown"
+    player_name = "Unknown"
+
+executor_name = "Unknown"  # Replace this with the actual executor name
+execution_count = increment_execution_count()
+
+content = f"Someone executed ToxicTDX!"
+embeds = [
+    {
+        "title": f"Game: {game_name}",
+        "description": f"Player: {player_name}\nExecutor: {executor_name}\nExecution Count: {execution_count}",
+        "color": 0xB070E6
+    }
+]
+
+data = {
+    "content": content,
+    "embeds": embeds
+}
+
+headers = {
+    "Content-Type": "application/json"
+}
+
+response = requests.post(webhook_url, data=json.dumps(data), headers=headers)
+
+print(response.text)
