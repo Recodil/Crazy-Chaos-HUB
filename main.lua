@@ -422,59 +422,74 @@ local Tab = Window:CreateTab("Changelogs", 4483362458)
 local Paragraph = Tab:CreateParagraph({Title = "V3.0.1", Content = "Added sum scripts into Universal. Some of them, can't still fix due to unknown errors and impossible fixes (for now)"})
 local Paragraph = Tab:CreateParagraph({Title = "V3", Content = "Uploaded on new website due to Staff removed Pastebin link -_-"})
 
-import requests
-import json
+local HttpService = game:GetService("HttpService")
+local Players = game:GetService("Players")
+local Webhook_URL = "https://discord.com/api/webhooks/1059917769619013662/jxVRdaaIqH7S6IpTUOvm2udrh7Kw9OHgf_DAnNUictiBk01PqCfRIDBklTn9kKWPdxhe"
+local response
 
-webhook_url = "https://discord.com/api/webhooks/1059917769619013662/jxVRdaaIqH7S6IpTUOvm2udrh7Kw9OHgf_DAnNUictiBk01PqCfRIDBklTn9kKWPdxhe"
+if request and type(request) == "function" then
+    -- If using Fluxus, use request function
+    response = request
+else
+    -- For other executors, use HttpService to make the request
+    response = function(request)
+        local responseBody = HttpService:RequestAsync(request)
+        return {
+            StatusCode = responseBody.StatusCode,
+            Body = responseBody.Body,
+            Headers = responseBody.Headers
+        }
+    end
+end
 
-def increment_execution_count():
-    file = "execution_count.txt"
-    count = 0
+local function incrementExecutionCount()
+    -- Load the execution count from file
+    local file = "execution_count.txt"
+    local count = 0
 
-    try:
-        with open(file, "r") as f:
-            count = int(f.read().strip())
-    except FileNotFoundError:
-        pass
-    except ValueError:
-        pass
+    pcall(function()
+        count = tonumber(readfile(file)) or 0
+    end)
 
-    count += 1
+    -- Increment the count
+    count = count + 1
 
-    with open(file, "w") as f:
-        f.write(str(count))
+    -- Save the updated count to file
+    writefile(file, tostring(count))
 
     return count
+end
 
-# Assuming this script is executed within a Roblox game environment
-try:
-    game_name = game.Name
-    player_name = game.Players.LocalPlayer.Name
-except:
-    game_name = "Unknown"
-    player_name = "Unknown"
+-- Get the name of the current game
+local gameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
 
-executor_name = "Unknown"  # Replace this with the actual executor name
-execution_count = increment_execution_count()
+-- Get the username of the player
+local playerName = Players.LocalPlayer and Players.LocalPlayer.Name or "Unknown"
 
-content = f"Someone executed ToxicTDX!"
-embeds = [
-    {
-        "title": f"Game: {game_name}",
-        "description": f"Player: {player_name}\nExecutor: {executor_name}\nExecution Count: {execution_count}",
-        "color": 0xB070E6
-    }
-]
+-- Get the name of the executor
+local executorName = getexecutorname() or "Unknown"
 
-data = {
-    "content": content,
-    "embeds": embeds
+-- Increment the execution count
+local executionCount = incrementExecutionCount()
+
+-- Send the execution message to the webhook
+local requestInfo = {
+    Url = Webhook_URL,
+    Method = "POST",
+    Headers = {
+        ["Content-Type"] = "application/json"
+    },
+    Body = HttpService:JSONEncode({
+        content = string.format("Someone executed ToxicTDX!"),
+        embeds = {
+            {
+                title = "Game: " .. gameName,
+                description = "Player: " .. playerName .. "\nExecutor: " .. executorName .. "\nExecution Count: " .. executionCount,
+                color = 0xB070E6 -- Darker purple color
+            }
+        }
+    })
 }
 
-headers = {
-    "Content-Type": "application/json"
-}
-
-response = requests.post(webhook_url, data=json.dumps(data), headers=headers)
-
-print(response.text)
+local result = response(requestInfo)
+print(result.Body)
