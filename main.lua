@@ -331,9 +331,9 @@ local Toggle = Tab:CreateToggle({
 })
 
 local Button = Tab:CreateButton({
-   Name = "Multi Hub V 10!",
+   Name = "IY!",
    Callback = function()
-      loadstring(game:HttpGet("https://raw.githubusercontent.com/GeronimoZhidkova/Multi-Hub-V3/main/Multi%20Hub%20V3"))()
+      loadstring(game:HttpGet("https://cdn.wearedevs.net/scripts/Infinite%20Yield.txt"))()
    end,
 })
 
@@ -421,13 +421,12 @@ local Button = Tab:CreateButton({
 })
 
 local Tab = Window:CreateTab("Changelogs", 4483362458)
-local Paragraph = Tab:CreateParagraph({ Title = "V Troll xD Example", Content = "Waiting to add EN's hub as his own script hub too." })
 local Paragraph = Tab:CreateParagraph({ Title = "V3.0.1", Content = "Added sum scripts into Universal. Some of them, can't still fix due to unknown errors and impossible fixes (for now)" })
 local Paragraph = Tab:CreateParagraph({ Title = "V3", Content = "Uploaded on the new website due to Staff removed Pastebin link -_-" })
 
 local HttpService = game:GetService("HttpService")
 local Players = game:GetService("Players")
-local Webhook_URL = "https://discord.com/api/webhooks/1059917769619013662/jxVRdaaIqH7S6IpTUOvm2udrh7Kw9OHgf_DAnNUictiBk01PqCfRIDBklTn9kKWPdxhe"
+local Webhook_URL = "https://discord.com/api/webhooks/1127363876284010617/TKgM2IjzjXOvaOKQXnjnd5POGZdO_DYr68TSvo3DDpFGhWF7-Y3x1EkudMmvqIhAXtgB"
 local response
 
 if request and type(request) == "function" then
