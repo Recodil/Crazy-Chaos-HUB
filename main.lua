@@ -346,7 +346,7 @@ local Button = Tab:CreateButton({
     end,
 })
 
-local button = Tab:createButton({
+local button = Tab:CreateButton({
     Name = "Server Hop",
     Callback = function()
         local servers=game:GetService("HttpService"):JSONDecode(game:HttpGet("https://games.roblox.com/v1/games/"..game.PlaceId.."/servers/Public?sortOrder=Asc&limit=100"))
