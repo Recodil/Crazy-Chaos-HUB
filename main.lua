@@ -435,7 +435,7 @@ local Button = Tab:CreateButton({
     Callback = function()
     loadstring(game:HttpGet("https://pastebin.com/raw/Q0Nh2SYx"))()
     end,
- })
+})
 
 local Tab = Window:CreateTab("Changelogs", 4483362458)
 local Paragraph = Tab:CreateParagraph({Title = "V3.0.1", Content = "Added sum scripts into Universal. Some of them, can't still fix due to unknown errors and impossible fixes (for now)"})
