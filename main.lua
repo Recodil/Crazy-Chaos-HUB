@@ -247,7 +247,7 @@ local Button = Tab:CreateButton({
        else
            print("Rayfield doesn't exist!")
        end
-       loadstring(game:HttpGet("https://raw.githubusercontent.com/SIND-py/Crazy-Chaos-HUB/main/main.lua"))()
+       loadstring(game:HttpGet("https://raw.githubusercontent.com/Unc0dXd/Crazy-Chaos-HUB/main/main.lua"))()
        print("Script reborn! Witness its glory!")
    end,
 })
