@@ -1,4 +1,4 @@
-local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Rayfield/main/source'))()
 _G.kill = false;
 local Window = Rayfield:CreateWindow({
    Name = "Crazy CHAOS Hub",
@@ -18,11 +18,11 @@ local Window = Rayfield:CreateWindow({
    KeySettings = {
       Title = "Crazy CHAOS Key System",
       Subtitle = "Key System",
-      Note = "If you will leak a password or script, I will change link.",
+      Note = "Test.",
       FileName = "Code", 
       SaveKey = true, 
       GrabKeyFromSite = false,
-      Key = {"159753", "Code_Nope1"} 
+      Key = {"Code_Nope1"} 
    }
 })
 
