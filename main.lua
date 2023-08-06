@@ -411,6 +411,21 @@ local Button = Tab:CreateButton({
     end,
 })
 
-local Tab = Window:CreateTab("Changelogs", 4483362458)
-local Paragraph = Tab:CreateParagraph({Title = "V3.0.1", Content = "Added sum scripts into Universal. Some of them, can't still fix due to unknown errors and impossible fixes (for now)"})
-local Paragraph = Tab:CreateParagraph({Title = "V3", Content = "Uploaded on new website due to Staff removed Pastebin link -_-"})
+task.spawn(function()
+    local mt = getrawmetatable(game)
+    local oldindex = mt.__index
+    setreadonly(mt, false)
+    mt.__index = newcclosure(function(self, method)
+
+    if method == 'JumpPower' then
+      return 50
+    end
+
+    if method == 'WalkSpeed' then
+       return 16
+    end
+
+    return oldindex(self, method)
+    end)
+    setreadonly(mt, true)
+end)
