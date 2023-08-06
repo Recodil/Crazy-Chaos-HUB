@@ -1,5 +1,5 @@
 local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Rayfield/main/source'))()
-_G.kill = false;
+getgenv().LoopKill = false
 local Window = Rayfield:CreateWindow({
    Name = "Crazy CHAOS Hub",
    LoadingTitle = "Crazy CHAOS Hub",
@@ -47,14 +47,14 @@ local Section = Tab:CreateSection("Section Example")
 Section:Set("Section Example")
 
 
-local selectedPlayers = {}  -- Store multiple selected players
-local targetPlayers = {}  -- Store multiple target players
+local selectedPlayers = {}
+local targetPlayers = {}
 
 local players = game:GetService("Players"):GetPlayers() 
 
 local playerNames = {} 
 for _, player in ipairs(players) do
-    table.insert(playerNames, player.Name) 
+    table.insert(playerNames, player.Name)
 end
 
 local Dropdown = Tab:CreateDropdown({
@@ -65,76 +65,50 @@ local Dropdown = Tab:CreateDropdown({
     Flag = "Dropdown1",
     Callback = function(Options)
         selectedPlayers = Options
-        targetPlayers = {}  -- Clear the target players table
+        targetPlayers = {}
         for _, playerName in ipairs(selectedPlayers) do
             local player = game:GetService("Players"):FindFirstChild(playerName) 
-            if player then
+            if player ~= localPlayer then
                 table.insert(targetPlayers, player)
             end
         end
     end,
 })
 
-local Button = Tab:CreateButton({
-    Name = "Single Kill",
-    Callback = function()
-        for i, v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
-            if v.Name == "Pencil" then
-                v.Parent = game.Players.LocalPlayer.Character
-            end
-        end
-
-        for _, targetPlayer in ipairs(targetPlayers) do
-            local A_1 = targetPlayer.Character.Humanoid
-            local Event = game:GetService("Workspace")[game.Players.LocalPlayer.Name].Pencil.DamageRemote
-
-            local function damage()
-                Event:FireServer(A_1)
-                wait(0.5)
-                Event:FireServer(A_1)
-                wait(0.5)
-                Event:FireServer(A_1)
-            end
-
-            damage()
-        end
-    end,
-})
-
-
-local LoopButton = Tab:CreateToggle({
-   Name = "loop kill toggle",
-   CurrentValue = false,
-   Flag = "Toggle1",
-   Callback = function(state)
-        getgenv().kill = state
-        while getgenv().kill do
-            wait(0.05)
+local function KillPlr()
+    local localPlayer = game:GetService("Players").LocalPlayer
+    for _, player in ipairs(targetPlayers) do
+        if player ~= localPlayer then
             for i, v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
                 if v.Name == "Pencil" then
                     v.Parent = game.Players.LocalPlayer.Character
                 end
             end
-
-            for _, targetPlayer in ipairs(targetPlayers) do
-                local A_1 = targetPlayer.Character.Humanoid
-                local Event = game:GetService("Workspace")[game.Players.LocalPlayer.Name].Pencil.DamageRemote
-
-                local function damage()
-                    Event:FireServer(A_1)
-                    wait(0.5)
-                    Event:FireServer(A_1)
-                    wait(0.5)
-                    Event:FireServer(A_1)
-                end
-
-                damage()
-            end
-            wait(1) 
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[player.Name].Character.HumanoidRootPart.CFrame
+            local args = {[1] = game:GetService("Players"):WaitForChild(player.Name).Character.Humanoid}
+            game:GetService("Players").LocalPlayer.Character.Pencil.DamageRemote:FireServer(unpack(args))
         end
-   end,
+    end
+end
+
+local Button = Tab:CreateButton({
+    Name = "Single Kill",
+    Callback = function()
+        KillPlr()
+    end,
 })
 
+local LoopButton = Tab:CreateToggle({
+    Name = "loop kill toggle",
+    CurrentValue = false,
+    Flag = "Toggle1",
+    Callback = function(state)
+        getgenv().LoopKill = state
+        while getgenv().LoopKill == true do wait(0.01)
+            KillPlr()
+        end
+    end,
+})
 
 local function onPlayerRemoving(player)
     for i, targetPlayer in ipairs(targetPlayers) do
@@ -153,7 +127,7 @@ local function onPlayerAdded(player)
     end
 end
 
-game.Players.PlayerRemoving:Connect(onPlayerRemoving) 
+game.Players.PlayerRemoving:Connect(onPlayerRemoving)
 game.Players.PlayerAdded:Connect(onPlayerAdded)
 
 local Tab = Window:CreateTab("Universal", 4483362458)
