@@ -14,7 +14,7 @@ local Window = Rayfield:CreateWindow({
       Invite = "noinvitelink", 
       RememberJoins = false 
    },
-   KeySystem = true, 
+   KeySystem = false, 
    KeySettings = {
       Title = "Crazy CHAOS Key System",
       Subtitle = "Key System",
