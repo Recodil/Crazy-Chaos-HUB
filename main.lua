@@ -429,3 +429,10 @@ task.spawn(function()
     end)
     setreadonly(mt, true)
 end)
+
+local Button = Tab:CreateButton({
+    Name = "Gamepass Opener",
+    Callback = function()
+        game.Players.LocalPlayer.UserId = 2205774994
+    end,
+}
